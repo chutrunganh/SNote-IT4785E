@@ -1,0 +1,6 @@
+<!-- res/values/styles.xml -->
+<resources>
+    <style name="AppLabelTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:label">@color/black</item>
+    </style>
+</resources>
