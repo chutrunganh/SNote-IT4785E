@@ -1,4 +1,4 @@
-package com.example.thenotesapp.model
+package com.example.snote.model
 
 import android.os.Parcelable
 import androidx.room.Entity

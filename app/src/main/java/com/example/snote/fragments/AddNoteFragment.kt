@@ -1,4 +1,4 @@
-package com.example.thenotesapp.fragments
+package com.example.snote.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,11 +13,11 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
-import com.example.thenotesapp.MainActivity
-import com.example.thenotesapp.R
-import com.example.thenotesapp.databinding.FragmentAddNoteBinding
-import com.example.thenotesapp.model.Note
-import com.example.thenotesapp.viewmodel.NoteViewModel
+import com.example.snote.MainActivity
+import com.example.snote.R
+import com.example.snote.databinding.FragmentAddNoteBinding
+import com.example.snote.model.Note
+import com.example.snote.viewmodel.NoteViewModel
 
 class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 

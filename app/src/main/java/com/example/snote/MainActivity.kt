@@ -1,12 +1,12 @@
-package com.example.thenotesapp
+package com.example.snote
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import com.example.thenotesapp.database.NoteDatabase
-import com.example.thenotesapp.repository.NoteRepository
-import com.example.thenotesapp.viewmodel.NoteViewModel
-import com.example.thenotesapp.viewmodel.NoteViewModelFactory
+import com.example.snote.database.NoteDatabase
+import com.example.snote.repository.NoteRepository
+import com.example.snote.viewmodel.NoteViewModel
+import com.example.snote.viewmodel.NoteViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 

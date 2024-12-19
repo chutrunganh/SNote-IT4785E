@@ -1,4 +1,4 @@
-package com.example.thenotesapp
+package com.example.snote
 
 import org.junit.Test
 

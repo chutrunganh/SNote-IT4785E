@@ -1,4 +1,4 @@
-package com.example.thenotesapp.fragments
+package com.example.snote.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,12 +14,12 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.thenotesapp.MainActivity
-import com.example.thenotesapp.R
-import com.example.thenotesapp.adapter.NoteAdapter
-import com.example.thenotesapp.databinding.FragmentHomeBinding
-import com.example.thenotesapp.model.Note
-import com.example.thenotesapp.viewmodel.NoteViewModel
+import com.example.snote.MainActivity
+import com.example.snote.R
+import com.example.snote.adapter.NoteAdapter
+import com.example.snote.databinding.FragmentHomeBinding
+import com.example.snote.model.Note
+import com.example.snote.viewmodel.NoteViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener, MenuProvider {
 

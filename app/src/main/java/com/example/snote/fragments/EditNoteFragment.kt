@@ -1,4 +1,4 @@
-package com.example.thenotesapp.fragments
+package com.example.snote.fragments
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -15,11 +15,11 @@ import androidx.core.view.MenuProvider
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.thenotesapp.MainActivity
-import com.example.thenotesapp.R
-import com.example.thenotesapp.databinding.FragmentEditNoteBinding
-import com.example.thenotesapp.model.Note
-import com.example.thenotesapp.viewmodel.NoteViewModel
+import com.example.snote.MainActivity
+import com.example.snote.R
+import com.example.snote.databinding.FragmentEditNoteBinding
+import com.example.snote.model.Note
+import com.example.snote.viewmodel.NoteViewModel
 
 class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
