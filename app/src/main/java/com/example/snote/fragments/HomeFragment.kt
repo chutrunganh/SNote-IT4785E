@@ -1,6 +1,7 @@
 package com.example.snote.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
@@ -20,6 +21,7 @@ import com.example.snote.adapter.NoteAdapter
 import com.example.snote.databinding.FragmentHomeBinding
 import com.example.snote.model.Note
 import com.example.snote.viewmodel.NoteViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener, MenuProvider {
 
@@ -50,11 +52,51 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         binding.addNoteFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_addNoteFragment)
         }
+
+        binding.syncButton.setOnClickListener {
+            Log.d("MyTag", "Sync button clicked")
+            notesViewModel.fetchNotesFromFirebase()
+            notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+                noteAdapter.differ.submitList(notes)
+                updateUI(notes)
+            }
+            Log.d("MyTag", "Sync from firebase successful")
+        }
+
+
+//        // Observe the LiveData from the ViewModel to update the UI when the database changes
+//        notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+//            noteAdapter.differ.submitList(notes)
+//            updateUI(notes)
+//        }
+
+        binding.uploadButton.setOnClickListener {
+            Log.d("MyTag", "Upload button clicked")
+            val firestore = FirebaseFirestore.getInstance()
+            firestore.collection("notes").get().addOnSuccessListener { result ->
+                for (document in result) {
+                    firestore.collection("notes").document(document.id).delete()
+                }
+                notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+                    val notesList = notes ?: emptyList()
+                    Log.d("MyTag", "Number of notes: ${notesList.size}")
+                    for (note in notesList) {
+                        Log.d("MyTag", "Sending $note to firebase")
+                        notesViewModel.saveNoteToFirebase(note)
+                    }
+                }
+            }.addOnFailureListener { e ->
+                Log.w("MyTag", "Error clearing notes in Firestore", e)
+            }
+        }
+
+
+
     }
 
-    private fun updateUI(note: List<Note>?){
-        if (note != null){
-            if (note.isNotEmpty()){
+    private fun updateUI(notes: List<Note>?) {
+        if (notes != null) {
+            if (notes.isNotEmpty()) {
                 binding.emptyNotesImage.visibility = View.GONE
                 binding.homeRecyclerView.visibility = View.VISIBLE
             } else {
