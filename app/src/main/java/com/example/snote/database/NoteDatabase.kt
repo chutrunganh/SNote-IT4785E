@@ -14,7 +14,7 @@ abstract class NoteDatabase: RoomDatabase() {
     companion object{
         @Volatile
         private var instance: NoteDatabase? = null
-        private val LOCK = Any()
+        private val LOCK = Any() // to make sure only one instance of database is created
 
         operator fun invoke(context: Context) = instance ?:
         synchronized(LOCK){

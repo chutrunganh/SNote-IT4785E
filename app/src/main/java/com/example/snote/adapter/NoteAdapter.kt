@@ -13,7 +13,9 @@ import com.example.snote.model.Note
 class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     class NoteViewHolder(val itemBinding: NoteLayoutBinding): RecyclerView.ViewHolder(itemBinding.root)
+    // Each item in the RecyclerView is represented by a ViewHolder object, defined each items layout in the NoteLayoutBinding class.
 
+    // These below function are to efficiently update the UI without having to refresh the entire list., by comparing the old and new list of items.
     private val differCallback = object : DiffUtil.ItemCallback<Note>(){
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id &&
@@ -27,6 +29,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
     val differ = AsyncListDiffer(this, differCallback)
 
+    // Three functions that must be implemented in the RecyclerView.Adapter class.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         return NoteViewHolder(
             NoteLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,6 +46,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
         holder.itemBinding.noteTitle.text = currentNote.noteTitle
         holder.itemBinding.noteDesc.text = currentNote.noteDesc
 
+        // When user click on a note, it will navigate to the EditNoteFragment with the current note as an argument.
         holder.itemView.setOnClickListener {
             val direction = HomeFragmentDirections.actionHomeFragmentToEditNoteFragment(currentNote)
             it.findNavController().navigate(direction)

@@ -25,9 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextListener, MenuProvider {
 
+    //Declare the binding variable
     private var homeBinding: FragmentHomeBinding? = null
     private val binding get() = homeBinding!!
 
+    //Declare the ViewModel and Adapter variables
     private lateinit var notesViewModel : NoteViewModel
     private lateinit var noteAdapter: NoteAdapter
 
@@ -43,34 +45,21 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the Menu
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        // Initialize the Note ViewModel and RecyclerView
         notesViewModel = (activity as MainActivity).noteViewModel
         setupHomeRecyclerView()
 
+        // When user click on the FAB(Add Note), it will navigate to the AddNoteFragment
         binding.addNoteFab.setOnClickListener {
             it.findNavController().navigate(R.id.action_homeFragment_to_addNoteFragment)
         }
 
-        binding.syncButton.setOnClickListener {
-            Log.d("MyTag", "Sync button clicked")
-            notesViewModel.fetchNotesFromFirebase()
-            notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
-                noteAdapter.differ.submitList(notes)
-                updateUI(notes)
-            }
-            Log.d("MyTag", "Sync from firebase successful")
-        }
-
-
-//        // Observe the LiveData from the ViewModel to update the UI when the database changes
-//        notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
-//            noteAdapter.differ.submitList(notes)
-//            updateUI(notes)
-//        }
-
-        binding.uploadButton.setOnClickListener {
+        // When user click on the Upload button, it will upload all the notes to Firebase Firestore
+        binding.uploadNotesFab.setOnClickListener {
             Log.d("MyTag", "Upload button clicked")
             val firestore = FirebaseFirestore.getInstance()
             firestore.collection("notes").get().addOnSuccessListener { result ->
@@ -82,18 +71,29 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
                     Log.d("MyTag", "Number of notes: ${notesList.size}")
                     for (note in notesList) {
                         Log.d("MyTag", "Sending $note to firebase")
-                        notesViewModel.saveNoteToFirebase(note)
+                        notesViewModel.uploadNoteToFirebase(note)
                     }
+                    updateUI(notesList)
                 }
             }.addOnFailureListener { e ->
                 Log.w("MyTag", "Error clearing notes in Firestore", e)
             }
         }
 
-
+        // When user  click the Download/ Fetch button, it will download all the notes from Firebase Firestore
+        binding.downloadNotesFab.setOnClickListener {
+            Log.d("MyTag", "Sync button clicked")
+            notesViewModel.deleteAllNotes()
+            notesViewModel.downloadNotesFromFirebase()
+            notesViewModel.getAllNotes().observe(viewLifecycleOwner) { notes ->
+                noteAdapter.differ.submitList(notes)
+            }
+            Log.d("MyTag", "Sync from firebase successful")
+        }
 
     }
 
+    // In case there are no notes, show the empty notes image (res/drawable/empty_sticky_notes.png), else show the RecyclerView
     private fun updateUI(notes: List<Note>?) {
         if (notes != null) {
             if (notes.isNotEmpty()) {
@@ -106,6 +106,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         }
     }
 
+    // Setup the RecyclerView with the NoteAdapter
     private fun setupHomeRecyclerView(){
         noteAdapter = NoteAdapter()
         binding.homeRecyclerView.apply {
@@ -113,12 +114,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
             setHasFixedSize(true)
             adapter = noteAdapter
         }
+        // GridLayoutManager is used to display the notes in a grid layout with 2 columns, as in the
+        // UI we seen there are 2 note items in a row.
 
         activity?.let {
             notesViewModel.getAllNotes().observe(viewLifecycleOwner){ note ->
                 noteAdapter.differ.submitList(note)
-                updateUI(note)
+                updateUI(note) // If notes are empty, show the empty notes image.
             }
+            // Observe the LiveData getAllNotes() from the ViewModel, and submit the list of notes to the adapter.
         }
     }
 
@@ -130,6 +134,9 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         }
     }
 
+    // Implement functions for the SearchView
+    // We want when user still typing, the search result will start to show.
+    // Not when user press enter, then give the search result.
     override fun onQueryTextSubmit(p0: String?): Boolean {
         return false
     }
@@ -141,6 +148,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), SearchView.OnQueryTextLis
         return true
     }
 
+    // Fragment no longer in used
     override fun onDestroy() {
         super.onDestroy()
         homeBinding = null

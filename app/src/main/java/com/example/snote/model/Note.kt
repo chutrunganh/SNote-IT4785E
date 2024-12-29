@@ -15,3 +15,5 @@ data class Note(
     val noteTitle: String = "",
     val noteDesc: String = ""
 ) : Parcelable
+
+// Parcelable is a mechanism to convert complex objects into a simple format that can be transferred between activities/fragments.

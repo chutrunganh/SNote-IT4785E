@@ -23,9 +23,11 @@ import com.example.snote.viewmodel.NoteViewModel
 
 class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
 
+    //Declare the binding variable
     private var editNoteBinding: FragmentEditNoteBinding? = null
     private val binding get() = editNoteBinding!!
 
+    //Declare the ViewModel and Note variables
     private lateinit var notesViewModel: NoteViewModel
     private lateinit var currentNote: Note
 
@@ -46,9 +48,11 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        // Initialize the Note ViewModel and View
         notesViewModel = (activity as MainActivity).noteViewModel
         currentNote = args.note!!
 
+        // Set the current note details to the EditText fields
         binding.editNoteTitle.setText(currentNote.noteTitle)
         binding.editNoteDesc.setText(currentNote.noteDesc)
 
@@ -60,6 +64,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
                 val note = Note(currentNote.id, noteTitle, noteDesc)
                 notesViewModel.updateNote(note)
                 view.findNavController().popBackStack(R.id.homeFragment, false)
+                // After updating the note, it will navigate back to the HomeFragment
             } else {
                 Toast.makeText(context, " Please enter note title", Toast.LENGTH_SHORT).show()
             }
@@ -79,6 +84,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
         }.create().show()
     }
 
+    //Override the MenuProvider functions
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.menu_edit_note, menu)
@@ -93,6 +99,7 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note), MenuProvider {
         }
     }
 
+    //Clear the binding variable when the fragment is destroyed
     override fun onDestroy() {
         super.onDestroy()
         editNoteBinding = null

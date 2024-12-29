@@ -21,9 +21,11 @@ import com.example.snote.viewmodel.NoteViewModel
 
 class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
 
+    //Declare the binding variable
     private var addNoteBinding: FragmentAddNoteBinding? = null
     private val binding get() = addNoteBinding!!
 
+    //Declare the ViewModel and View variables
     private lateinit var notesViewModel: NoteViewModel
     private lateinit var addNoteView: View
 
@@ -39,9 +41,11 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize the Menu
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
+        // Initialize the Note ViewModel and View
         notesViewModel = (activity as MainActivity).noteViewModel
         addNoteView = view
     }
@@ -61,12 +65,14 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         }
     }
 
+    // Implement the MenuProvider interface
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.menu_add_note, menu)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        // When user click on the save menu, it will save the note
         return when(menuItem.itemId){
             R.id.saveMenu -> {
                 saveNote(addNoteView)
@@ -76,6 +82,7 @@ class AddNoteFragment : Fragment(R.layout.fragment_add_note), MenuProvider {
         }
     }
 
+    // Clear the binding variable when the fragment is destroyed
     override fun onDestroy() {
         super.onDestroy()
         addNoteBinding = null
