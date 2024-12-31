@@ -43,7 +43,7 @@ For detailed information, please refer to our [report](https://github.com/chutru
 </table>
 
 > [!NOTE]  
-> To enable synchronization between devices, both must use the same google-services.json file. Instructions for generating this file are provided in the installation section.
+> To enable synchronization between devices, both must use the same `google-services.json` file. Instructions for generating this file are provided in the installation section.
 
 # 🛠️ Installation
 
