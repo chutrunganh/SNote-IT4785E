@@ -4,6 +4,8 @@ This project, developed for the Mobile Programming Course IT4785E (Semester 2024
 
 While similar projects are widely available on platforms like GitHub, this repository stands out by including a detailed report and presentation slides, emphasizing the development process and the knowledge gained throughout the course.
 
+For detailed information, please refer to our [report](https://github.com/chutrunganh/SNote-IT4785E/blob/master/Slide_and_Report/Mobile_Project_Report.pdf)
+
 # 🚀 Features
 
 *Better to view this README.md in dark mode*
