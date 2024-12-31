@@ -17,7 +17,7 @@ we provide the report and slide for presention the project, focussing more on th
 - Add new note
 
 <div style="display: flex;">
-  <img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="200" style="margin-right: 30px;">
+  <img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="200" style="margin-right: 50px;">
   <img src="assets/AddNoteFragment2.jpg" alt="HomeFragment" width="200">
 </div>
 
