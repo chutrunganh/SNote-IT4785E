@@ -12,13 +12,13 @@ we provide the report and slide for presention the project, focussing more on th
 
 - View and search notes in the main screen
 
-<img src="assets/HomeFragment.jpg" alt="HomeFragment" width="300">
+<img src="assets/HomeFragment.jpg" alt="HomeFragment" width="200">
 
 - Add new note
 
-<div style="display: flex;">
-  <img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="200" style="margin-right: 50px;">
-  <img src="assets/AddNoteFragment2.jpg" alt="HomeFragment" width="200">
+<div style="display: flex; gap: 20px;">
+  <img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="100">
+  <img src="assets/AddNoteFragment2.jpg" alt="HomeFragment" width="100">
 </div>
 
 
