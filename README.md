@@ -16,11 +16,12 @@ we provide the report and slide for presention the project, focussing more on th
 
 - Add new note
 
-<div style="display: flex; gap: 20px;">
-  <img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="100">
-  <img src="assets/AddNoteFragment2.jpg" alt="HomeFragment" width="100">
-</div>
-
+<table>
+  <tr>
+    <td><img src="assets/AddNoteFragment.jpg" alt="HomeFragment" width="200"></td>
+    <td><img src="assets/AddNoteFragment2.jpg" alt="HomeFragment" width="200"></td>
+  </tr>
+</table>
 
 
 - Edit/Delete note
