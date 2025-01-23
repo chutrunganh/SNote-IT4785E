@@ -49,7 +49,7 @@ For detailed information, please refer to our [report](https://github.com/chutru
 
 ## 1. Use the apk file
 
-You can simply download the apk file from the [release page](Not availabale yet) to enjoy the application
+You can simply download the apk file from the [release page](https://github.com/chutrunganh/SNote-IT4785E/releases/) to enjoy the application
 
 ## 2. Build from source
 
