@@ -69,7 +69,7 @@ You can simply download the apk file from the [release page](Not availabale yet)
 
     It will naviagate you to [Firebase Console](https://console.firebase.google.com), create a new project -> Build -> Firestore Database -> Create Database -> Start in test mode (for quick setup, but our 
 database will only be accessible in 30 days) / Start in production mode (need to change in Rules tab, from allow read, write: if false; to allow read, write: if true). After
-that, you should see the google-services.json file in your project (May need to choose view from Android to Project to see the file in IDE).
+that, you should see the `google-services.json` file in your project (May need to choose view from Android to Project to see the file in IDE).
 
 
 5. Run the application on an emulator or a physical device.
